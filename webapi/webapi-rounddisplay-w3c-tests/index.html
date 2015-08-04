@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>CSS Round Display Test: device-radius</title>
+<style>
+body {
+    font-family: 'Malgun Gothic';
+}
+h1 {
+    font-family: 나눔고딕;
+    background-color: #C60;
+    color: white;
+    padding: 25px;
+    padding-left: 40px;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+h2 {
+    border-bottom: 2px solid #C60;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 0 30px;
+    font-size: 28px;
+    color: #C60;
+}
+h3 {
+    padding: 0 30px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #333;
+}
+span {
+    font-size: 20px;
+    color: #EEE;
+}
+img {
+    width: 48px;
+    height: 48px;
+    text-align: left;
+}
+#result {
+    border: 3px #FFF solid;
+    margin: 20px;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-left: 10px;
+}
+#result_contents {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 10px;
+    font-size: 20px;
+}
+#container, #container2{
+    margin-top: -15px;
+    margin-bottom: 30px;
+    padding-left: 30px;
+    font-size: 20px;
+}
+input {
+    clear: both;
+    width: 60%;
+    margin: 10px 17%;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 1px solid #666;
+    background-color: #CCC;
+    color: #666;
+    opacity: 0.7;
+}
+</style>
+<script>
+function init() {
+    var value = "(device-radius)";
+    if (window.matchMedia(value).matches) {
+        document.querySelector("#result").style.borderColor = "#173";
+        document.querySelector("#result_contents").style.color = "#152";
+        document.querySelector("#result_img").src = "http://pieroxy.net/tools/css_media_queries/stage4-img.jsp?s=success";
+        document.querySelector("#result_contents").innerHTML = "The test was successful. The 'device-radius' media feature is supported in your user agent.";
+        evalTestCases();
+    } else {
+        document.querySelector("#result").style.borderColor = "#D12";
+        document.querySelector("#result_contents").style.color = "#F11";
+        document.querySelector("#result_img").src = "http://pieroxy.net/tools/css_media_queries/stage4-img.jsp?s=fail";
+        document.querySelector("#result_contents").innerHTML = "The test failed. The 'device-radius' media feature is not supported in your user agent.";
+        document.querySelector("#container").innerHTML = "In case the 'device-radius' media feature is supported, test results is shown in this area.<br />All results are FALSE unless the 'device-radius' media feature is supported.";
+    }
+    document.querySelector("#result_img").addEventListener("click", function() {
+        var statement = window.prompt("The 'device-radius' media feature is provided by a user agent, but now a user can specify the value directly instead of the user agent. it's a magic!\ne.q. device-radius=50%", "device-radius=");
+        alert("Under Construnction of this feature!")
+    });
+}
+function evalTestCases() {
+    var cases = document.querySelectorAll(".testcases");
+    for (var i = 0; i < cases.length; i++) {
+        if (window.matchMedia("(" + cases[i].id + ")").matches) {
+            cases[i].innerHTML = cases[i].id + " -> <span style='color: green'>True</span>";
+        } else {
+            cases[i].innerHTML = cases[i].id + " -> <span style='color: red'>False</span>";
+        }
+    }
+}
+function customQuery() {
+    var statement = window.prompt("Insert your media query (don't enter @media or parenthesis) e.q. min-device-radius: 0px", "min-device-radius: ");
+    if (statement) {
+        var element = document.createElement("div");
+        element.id = statement;
+        element.className = "testcases";
+        document.querySelector("#container2").appendChild(element);
+        if (window.matchMedia("(" + element.id + ")").matches) {
+            document.querySelector("#"+element.id).innerHTML = element.id + " -> <span style='color: green'>True</span>";
+        } else {
+            document.querySelector("#"+element.id).innerHTML = element.id + " -> <span style='color: red'>False</span>";
+        }
+    }
+}
+window.addEventListener("load", init);
+</script>
+</head>
+<body>
+<h1>CSS Round Display Test Page <span>('device-radius' media feature extending CSS Media Queries)</span></h1>
+<h3>This page provides some test cases to confirm how to operate the 'device-radius' media feature in your browser.</h3>
+<h3>CSS Round Display Specification: <a href="http://dev.w3.org/csswg/css-round-display/">http://dev.w3.org/csswg/css-round-display/</a><br />CSS Media Queries Specification: <a href="http://dev.w3.org/csswg/mediaqueries-4/">http://dev.w3.org/csswg/mediaqueries-4/</a></h3>
+<h3>If your browser supports the 'device-radius' media feature, you can see a green box and test cases results. if not, only a red box that notifies a test failure is shown. Once you input a custom media query to test various 'device-radius' statement through the button(Run custom media query), you can see the result of the 'device-radius' statement at once.</h3>
+<h3>You can make some of magic through clicking the O or X image below!</h3>
+<div id="result">
+<img id="result_img"/>
+<div id="result_contents"></div>
+</div>
+<h2>Test cases</h2>
+<div id="container">
+<div id="device-radius: 0px" class="testcases"></div>
+<div id="device-radius: 1000px" class="testcases"></div>
+<div id="device-radius: 0%" class="testcases"></div>
+<div id="device-radius: 50%" class="testcases"></div>
+<div id="device-radius: 1000%" class="testcases"></div>
+<div id="device-radius: 0" class="testcases"></div>
+<div id="device-radius: 50" class="testcases"></div>
+<div id="device-radius: 1000" class="testcases"></div>
+<div id="min-device-radius: 0%" class="testcases"></div>
+<div id="min-device-radius: 50%" class="testcases"></div>
+<div id="max-device-radius: 0%" class="testcases"></div>
+<div id="max-device-radius: 50%" class="testcases"></div>
+<div id="min-device-radius: 0px" class="testcases"></div>
+<div id="min-device-radius: 500px" class="testcases"></div>
+<div id="min-device-radius: 2000px" class="testcases"></div>
+<div id="max-device-radius: 0px" class="testcases"></div>
+<div id="max-device-radius: 500px" class="testcases"></div>
+<div id="max-device-radius: 2000px" class="testcases"></div>
+</div>
+
+<h2>Custom queries</h2>
+<div id="container2">
+
+</div>
+<input type="button" value="Run custom media query" onclick="customQuery()" />
+</body>
+</html>
